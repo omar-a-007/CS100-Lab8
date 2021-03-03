@@ -13,7 +13,7 @@ class Add : public Base {
 
 		void print(std::ostream& stream = std::cout) override {stream << "+";}
 
-		int number_of_children() override;
+		//int number_of_children() override;
 
         Base* get_child(int i) override
 		{
@@ -23,17 +23,10 @@ class Add : public Base {
 		}
 
         void accept(Visitor* visitor, int index) override{
-  		if(index == 0){
-			visitor->visit_add_begin(this);
-		}	
-		else if(index == 1) {
-			visitor->visit_add_middle(this);
+				if(index == 0) { visitor->visit_add_begin(this);  }	
+			else if(index == 1) { visitor->visit_add_middle(this); }
+			else {visitor->visit_add_end(this); }	
 		}
-
-		else {
-			visitor->visit_add_end(this);
-		}	
-	}
 };
 
 #endif // __ADD_HPP__
