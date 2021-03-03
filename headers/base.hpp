@@ -21,7 +21,8 @@ class Base {
         virtual double evaluate() = 0;
         virtual std::string stringify() = 0;
 
-        virtual void print(std::ostream& stream = std::cout) = 0;
+        virtual std::string print() {return "+";}
+        
         int number_of_children(){
             int numChildren = 0;
             if(x != nullptr) numChildren++;

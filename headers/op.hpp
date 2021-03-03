@@ -14,7 +14,8 @@ class Op : public Base {
 		virtual double evaluate() { return value; }
 		virtual std::string stringify() { return std::to_string(value); }
 
-		void print(std::ostream& stream = std::cout) {stream << value;}
+		virtual std::string print() {return "+";}
+		
 		//int number_of_children() override {return 0;}
 		Base* get_child(int i)	 {return nullptr;}
 

@@ -11,7 +11,7 @@ class Add : public Base {
 		virtual double evaluate() { return x->evaluate() + y->evaluate(); }
 		virtual std::string stringify() { return "(" + x->stringify() + " + " + y->stringify() + ")"; }
 
-		void print(std::ostream& stream = std::cout) {stream << "+";}
+		virtual std::string print() {return "+";}
 
 		//int number_of_children() override;
 
