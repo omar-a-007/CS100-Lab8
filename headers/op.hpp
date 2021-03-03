@@ -2,8 +2,6 @@
 #define __OP_HPP__
 
 #include "base.hpp"
-#include <sstream>
-
 
 class Op : public Base {
 
@@ -16,8 +14,8 @@ class Op : public Base {
 
 		virtual std::string print() {return std::to_string(value);}
 
-		//int number_of_children() override {return 0;}
-		Base* get_child(int i)	 {return nullptr;}
+		//int number_of_children() { return 0;}
+		Base* get_child(int i) {return nullptr;}
 
 		void accept(Visitor* visitor, int index) {
 			visitor->visit_op(this);

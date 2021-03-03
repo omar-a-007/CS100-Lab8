@@ -8,101 +8,50 @@
 #include "iterator.hpp"
 
 class VisitMathML : public Visitor {
+    private:
+        std::string print; 
+        unsigned indent;
+        std::string repeat(unsigned num, const std::string& input = "  ")
+        {
+            std::string ret;
+            ret.reserve(input.size() * num);
+            while (num--) ret += input;
+            return ret;
+        }
     public:
         std::string PrintMathML(Base* ptr)
         {
+            print = "";
+            print += "<math>\n";
+            indent = 0;
             Iterator iter (ptr);
-            std::cout  << "<math>\n";
             while (!iter.is_done())
             {
-                ptr->accept(this, iter.current_index());
+                iter.current_node()->accept(this, iter.current_index());
 		        iter.next();
 		    }
-            std::cout  << "</math>";
-            return "";
+            print += "</math>\n";
+            return print;
         }
-        virtual void visit_op(Op* node)
-        {
-            std::cout << "\t<cn>" << node->print() << "</cn>";
-        }
-        virtual void visit_rand(Rand* node)
-        {            
-            //std::cout << "\t<cn>" << node->print()  << "</cn>";
-        }
-        virtual void visit_add_begin(Add* node) 
-        {
-            std::cout << "<apply>\n";
-        }
-        virtual void visit_add_middle(Add* node)
-        {
-            std::cout << "\t<plus/>\n\t";
-        }
-        virtual void visit_add_end(Add* node)
-        {
-            std::cout << "</apply>\n";
-        }
+        virtual void visit_rand(Rand* node)        { print += repeat(indent) + "<cn>" + node->print() + "</cn>\n"; }
+        virtual void visit_op(Op* node)            { print += repeat(indent) + "<cn>" + node->print() + "</cn>\n"; }
+        virtual void visit_add_begin(Add* node)    { print += repeat(indent) + "<apply>\n" + repeat(++indent) + "<plus/>\n"; }
+        virtual void visit_sub_begin(Sub* node)    { print += repeat(indent) + "<apply>\n" + repeat(++indent) + "<minus/>\n"; }       
+        virtual void visit_mult_begin(Mult* node)  { print += repeat(indent) + "<apply>\n" + repeat(++indent) + "<times/>\n"; }       
+        virtual void visit_div_begin(Div* node)    { print += repeat(indent) + "<apply>\n" + repeat(++indent) + "<divide/>\n"; }
+        virtual void visit_pow_begin(Pow* node)    { print += repeat(indent) + "<apply>\n" + repeat(++indent) + "<power/>\n"; }
+                        
+        virtual void visit_add_end(Add* node)      { print +=  repeat(--indent) + "</apply>\n"; }
+        virtual void visit_sub_end(Sub* node)      { print +=  repeat(--indent) + "</apply>\n"; }
+        virtual void visit_mult_end(Mult* node)    { print +=  repeat(--indent) + "</apply>\n"; }
+        virtual void visit_div_end(Div* node)      { print +=  repeat(--indent) + "</apply>\n"; }
+        virtual void visit_pow_end(Pow* node)      { print +=  repeat(--indent) + "</apply>\n"; }
 
-        virtual void visit_sub_begin(Sub* node)
-        {
-
-        }
-
-        virtual void visit_sub_middle(Sub* node)
-        {
-
-        }
-
-        virtual void visit_sub_end(Sub* node)
-        {
-
-        }
-
-        virtual void visit_mult_begin(Mult* node)
-        {
-
-        }
-
-        virtual void visit_mult_middle(Mult* node)
-        {
-
-        }
-
-        virtual void visit_mult_end(Mult* node)
-        {
-
-        }
-
-        virtual void visit_div_begin(Div* node)
-        {
-
-        }
-
-        virtual void visit_div_middle(Div* node)
-        {
-
-        }
-
-        virtual void visit_div_end(Div* node)
-        {
-
-        }
-
-        virtual void visit_pow_begin(Pow* node)
-        {
-
-        }
-
-        virtual void visit_pow_middle(Pow* node)
-        {
-
-        }
-
-        virtual void visit_pow_end(Pow* node)
-        {
-
-        }
-
-
+        virtual void visit_add_middle(Add* node)   { }
+        virtual void visit_sub_middle(Sub* node)   { }
+        virtual void visit_mult_middle(Mult* node) { }
+        virtual void visit_div_middle(Div* node)   { }
+        virtual void visit_pow_middle(Pow* node)   { }
 };
 
 #endif
