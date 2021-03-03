@@ -13,10 +13,13 @@ class Rand : public Base {
 		virtual std::string stringify() { return std::to_string(value); }
 
 		void print(std::ostream& stream = std::cout) override {stream << value;}
-		int number_of_children() override {return 0;}
+		//int number_of_children() override {return 0;}
         Base* get_child(int i)	 override {return nullptr;}
 
-        void accept(Visitor* visitor) override;
+		void accept(Visitor* visitor, int index) override{
+			visitor->visit_rand(this);
+		}
+
 };
 
 #endif //__RAND_HPP__

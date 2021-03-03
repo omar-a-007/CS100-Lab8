@@ -23,13 +23,12 @@ class Base {
 
         virtual void print(std::ostream& stream = std::cout) = 0;
         int number_of_children(){
-		int numChildren = 0;
-		if(x != nullptr)
-			numChildren++;
-		if(y != nullptr)
-			numChildren++;
-		return numChildren;
-	}
+            int numChildren = 0;
+            if(x != nullptr) numChildren++;
+            if(y != nullptr) numChildren++;
+            return numChildren;
+	    }
+
         virtual Base* get_child(int i) = 0;
 
         virtual void accept(Visitor* visitor, int index) = 0;

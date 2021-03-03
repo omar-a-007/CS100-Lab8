@@ -12,7 +12,7 @@ class Mult : public Base {
 		virtual std::string stringify() { return "(" + x->stringify() + " * " + y->stringify() + ")"; }
 
 		void print(std::ostream& stream = std::cout) override {stream << "*";}
-		int number_of_children() override;
+		//int number_of_children() override;
         Base* get_child(int i) override
 		{
 			if (i == 0) return x;
@@ -20,7 +20,11 @@ class Mult : public Base {
 			return nullptr;
 		}
 
-        void accept(Visitor* visitor) override;
+        void accept(Visitor* visitor, int index) override{
+				if(index == 0) { visitor->visit_mult_begin(this);  }	
+			else if(index == 1) { visitor->visit_mult_middle(this); }
+			else {visitor->visit_mult_end(this); }	
+		}
 };
 
 #endif //__MULT_HPP__
