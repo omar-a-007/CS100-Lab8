@@ -1,13 +1,13 @@
 #ifndef __VISITOR_HPP__
 #define __VISITOR_HPP__
 
-class Op;
-class Rand;
-class Add;
-class Sub;
-class Mult;
-class Div;
-class Pow;
+#include "op.hpp"
+#include "rand.hpp"
+#include "add.hpp"
+#include "sub.hpp"
+#include "mult.hpp"
+#include "div.hpp"
+#include "pow.hpp"
 
 class Visitor{
     public:
