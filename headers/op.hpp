@@ -1,9 +1,9 @@
 #ifndef __OP_HPP__
 #define __OP_HPP__
 
+#include "base.hpp"
 #include <sstream>
 
-#include "base.hpp"
 
 class Op : public Base {
 
@@ -14,11 +14,11 @@ class Op : public Base {
 		virtual double evaluate() { return value; }
 		virtual std::string stringify() { return std::to_string(value); }
 
-		void print(std::ostream& stream = std::cout) override {stream << value;}
+		void print(std::ostream& stream = std::cout) {stream << value;}
 		//int number_of_children() override {return 0;}
-		Base* get_child(int i)	 override {return nullptr;}
+		Base* get_child(int i)	 {return nullptr;}
 
-		void accept(Visitor* visitor, int index) override{
+		void accept(Visitor* visitor, int index) {
 			visitor->visit_op(this);
 		}
 };

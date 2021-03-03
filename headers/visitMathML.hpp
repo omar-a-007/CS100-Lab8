@@ -13,8 +13,10 @@ class VisitMathML : public Visitor {
         {
             Iterator iter (ptr);
             std::cout  << "<math>";
-            while (!iter.is_done())
+            while (!iter.is_done()){
                 ptr->accept(this, iter.current_index());
+		iter.next();
+		}
             std::cout  << "</math>";
         }
         virtual void visit_op(Op* node)
@@ -26,7 +28,7 @@ class VisitMathML : public Visitor {
         virtual void visit_rand(Rand* node)
         {            
             std::cout << "\t<cn>";
-            node->print(std::cout);
+            //node->print(std::cout);
             std::cout << "</cn>";
         }
         virtual void visit_add_begin(Add* node) 
