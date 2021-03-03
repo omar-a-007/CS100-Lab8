@@ -12,13 +12,14 @@ class VisitMathML : public Visitor {
         std::string PrintMathML(Base* ptr)
         {
             Iterator iter (ptr);
-            std::cout  << "<math>";
+            std::cout  << "<math>\n";
             while (!iter.is_done())
             {
                 ptr->accept(this, iter.current_index());
 		        iter.next();
 		    }
             std::cout  << "</math>";
+            return "";
         }
         virtual void visit_op(Op* node)
         {
@@ -38,7 +39,7 @@ class VisitMathML : public Visitor {
         }
         virtual void visit_add_end(Add* node)
         {
-            std::cout << "</apply>";
+            std::cout << "</apply>\n";
         }
 
         virtual void visit_sub_begin(Sub* node)

@@ -13,8 +13,8 @@ class Pow : public Base {
 		virtual double evaluate() { return pow(x->evaluate(), y->evaluate()); }
 		virtual std::string stringify() { return "(" + x->stringify() + " ** " + y->stringify() + ")"; }
 
-		virtual std::string print() {return "+";}
-		
+		virtual std::string print() {return "**";}
+
 		//int number_of_children() override;
         Base* get_child(int i) 
 		{
