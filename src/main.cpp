@@ -29,6 +29,8 @@ int main()
 
     VisitMathML* mathML = new VisitMathML();
     std::cout << mathML->PrintMathML(b);
+    
+    std::cout << "\n\n";
 
     // VisitorLaTeX* latex = new VisitorLaTeX();
     // std::cout << latex->PrintMathML(b);
