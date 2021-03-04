@@ -22,10 +22,8 @@ int main()
         new Op(5), new Op(6), new Op(7), new Op(8), new Op(9) };
     Base* r[5] = {new Rand(), new Rand(), new Rand(), new Rand(), new Rand()};
 
-    Base* a = new Sub(num[5], r[0]);
-    Base* b = new Add(num[0], a);
-
-    std::cout << r[0]->print() << "\n";
+    Base* a = new Sub(num[5], num[0]);
+    Base* b = new Add(num[1], a);
 
     VisitMathML* mathML = new VisitMathML();
     std::cout << mathML->PrintMathML(b);
