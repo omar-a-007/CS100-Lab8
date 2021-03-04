@@ -13,15 +13,20 @@ class Base {
         Base* y;
 
     public:
-        Base() : x(nullptr), y(nullptr) { }
-        Base(Base* x, Base* y) : x(x), y(y) { }
-        virtual ~Base() = default;
+        Base() { 
+            x = nullptr; y = nullptr;
+        }
+        Base(Base* x, Base* y){
+            this->x = x;
+            this->y = y;
+        }
+        virtual ~Base() { }
 
         /* Pure Virtual Functions */
         virtual double evaluate() = 0;
         virtual std::string stringify() = 0;
 
-        virtual std::string print() {return "+";}
+        virtual std::string print() = 0;
 
         virtual int number_of_children(){
             int numChildren = 0;
