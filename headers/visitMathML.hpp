@@ -23,7 +23,7 @@ class VisitMathML : public Visitor {
         {
             print = "";
             print += "<math>\n";
-            indent = 0;
+            indent = 1;
             Iterator iter (ptr);
             while (!iter.is_done())
             {
