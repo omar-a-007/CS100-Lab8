@@ -11,7 +11,7 @@ class VisitorLaTeX : public Visitor {
     private:
         std::string print;
     public:
-        std::string PrintMathML(Base* ptr)
+        std::string PrintLaTeX(Base* ptr)
         {
             print = "";
             print += "$";
