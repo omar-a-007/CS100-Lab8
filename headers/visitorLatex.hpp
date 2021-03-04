@@ -25,11 +25,11 @@ class VisitorLaTeX : public Visitor {
             return print;
         }
         virtual void visit_rand(Rand* node)        { print += "{" + node->print() + "}"; }
-        virtual void visit_op(Op* node)            { print += "{" + std::to_string(std::stod(node->print())) + "}"; }
+        virtual void visit_op(Op* node)            { print += "{" + node->print() + "}"; }
         virtual void visit_add_begin(Add* node)    { print += "("; }
         virtual void visit_sub_begin(Sub* node)    { print += "("; }
         virtual void visit_mult_begin(Mult* node)  { print += "("; }
-        virtual void visit_div_begin(Div* node)    { print += "(\\frac"; }
+        virtual void visit_div_begin(Div* node)    { print += "(\\frac{"; }
         virtual void visit_pow_begin(Pow* node)    { print += "("; }
 
         virtual void visit_add_end(Add* node)      { print +=  ")"; }
@@ -41,7 +41,7 @@ class VisitorLaTeX : public Visitor {
         virtual void visit_add_middle(Add* node)   { print += "+"; }
         virtual void visit_sub_middle(Sub* node)   { print += "-"; }
         virtual void visit_mult_middle(Mult* node) { print += "\\cdot";}
-        virtual void visit_div_middle(Div* node)   { }
+        virtual void visit_div_middle(Div* node)   { print += "}{"; }
         virtual void visit_pow_middle(Pow* node)   { print += "^"; }
 };
 

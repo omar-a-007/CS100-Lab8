@@ -10,6 +10,7 @@
 
 #include "iterator_test.hpp"
 #include "visitMathML_test.hpp"
+#include "visitLatex_test.hpp"
 
 
 int main(int argc, char **argv) {

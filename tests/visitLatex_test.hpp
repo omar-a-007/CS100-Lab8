@@ -1,5 +1,5 @@
-#ifndef __VISIT_MATHML_TEST_HPP__
-#define __VISIT_MATHML_TEST_HPP__
+#ifndef __VISIT_LATEX_TEST_HPP__
+#define __VISIT_LATEX_TEST_HPP__
 
 #include "gtest/gtest.h"
 
@@ -12,38 +12,38 @@
 #include "../headers/div.hpp"
 #include "../headers/pow.hpp"
 
-#include "../headers/visitMathML.hpp"
+#include "../headers/visitorLatex.hpp"
 #include "../headers/iterator.hpp"
 
-TEST(VisitMathMLtest, basicOp)
+TEST(VisitLatextest, basicOp)
 {   
     Base* num[10] = {new Op(0), new Op(1), new Op(2), new Op(3), new Op(4), new Op(5), new Op(6), new Op(7), new Op(8), new Op(9) };
 
-    VisitMathML* mathML = new VisitMathML();
-    std::string expect = "<math>\n  <cn>0</cn>\n</math>\n";    
-    EXPECT_EQ(mathML->PrintMathML(num[0]), expect);
+    VisitorLaTeX* latex = new VisitorLaTeX();
+    std::string expect = "${0}$\n";    
+    EXPECT_EQ(latex->PrintLaTeX(num[0]), expect);
 
     for (auto i : num) delete i;
-    delete mathML;
+    delete latex;
 }
 
 // Example 1: 1+(5-0)    
-TEST(VisitMathMLtest, twoComposites)
+TEST(VisitLatextest, twoComposites)
 {
     Base* num[10] = {new Op(0), new Op(1), new Op(2), new Op(3), new Op(4), new Op(5), new Op(6), new Op(7), new Op(8), new Op(9) };
     
     Base* a = new Sub(num[5], num[0]);
     Base* test = new Add(num[0], a);
 
-    VisitMathML* mathML = new VisitMathML();
-    std::string expect = "<math>\n  <apply>\n    <plus/>\n    <cn>0</cn>\n    <apply>\n      <minus/>\n      <cn>5</cn>\n      <cn>0</cn>\n    </apply>\n  </apply>\n</math>\n";
-    EXPECT_EQ(mathML->PrintMathML(test), expect);
+    VisitorLaTeX* latex = new VisitorLaTeX();
+    std::string expect = "$({0}+({5}-{0}))$\n";
+    EXPECT_EQ(latex->PrintLaTeX(test), expect);
 
     for (auto i : num) delete i;
-    delete mathML, a, test;
+    delete latex, a, test;
 }
 
-TEST(VisitMathMLtest, multipleComposites)
+TEST(VisitLatextest, multipleComposites)
 {
     Base* num[10] = {new Op(0), new Op(1), new Op(2), new Op(3), new Op(4), new Op(5), new Op(6), new Op(7), new Op(8), new Op(9) };
        
@@ -54,15 +54,15 @@ TEST(VisitMathMLtest, multipleComposites)
     // Example 5: (2*5) / (5^2)
         Base* test = new Div(a, b);
 
-    VisitMathML* mathML = new VisitMathML();
-    std::string expect = "<math>\n  <apply>\n    <divide/>\n    <apply>\n      <times/>\n      <cn>2</cn>\n      <cn>5</cn>\n    </apply>\n    <apply>\n      <power/>\n      <cn>5</cn>\n      <cn>2</cn>\n    </apply>\n  </apply>\n</math>\n";
-    EXPECT_EQ(mathML->PrintMathML(test), expect);
+    VisitorLaTeX* latex = new VisitorLaTeX();
+    std::string expect = "$(\\frac{({2}\\cdot{5})}{({5}^{2}))$\n";
+    EXPECT_EQ(latex->PrintLaTeX(test), expect);
 
     for (auto i : num) delete i;
-    delete mathML, a, b, test;
+    delete latex, a, b, test;
 }
 
-TEST(VisitMathMLtest, allComposites)
+TEST(VisitLatextest, allComposites)
 {
     Base* num[10] = {new Op(0), new Op(1), new Op(2), new Op(3), new Op(4), new Op(5), new Op(6), new Op(7), new Op(8), new Op(9) };
     Base *add, *sub, *mult, *div, *test;
@@ -74,12 +74,12 @@ TEST(VisitMathMLtest, allComposites)
     div   = new Div(mult,   num[4]);   // (-6) / 4 = 1.5
     test  = new Pow(div,    num[4]);   // 1.5 ^ 4 = 5.0625
 
-    VisitMathML* mathML = new VisitMathML();
-    std::string expect = "<math>\n  <apply>\n    <power/>\n    <apply>\n      <divide/>\n      <apply>\n        <times/>\n        <cn>-2</cn>\n        <apply>\n          <minus/>\n          <cn>4</cn>\n          <apply>\n            <plus/>\n            <cn>-2</cn>\n            <cn>3</cn>\n          </apply>\n        </apply>\n      </apply>\n      <cn>4</cn>\n    </apply>\n    <cn>4</cn>\n  </apply>\n</math>\n";
-    EXPECT_EQ(mathML->PrintMathML(test), expect);
+    VisitorLaTeX* latex = new VisitorLaTeX();
+    std::string expect = "$((\\frac{({-2}\\cdot({4}-({-2}+{3})))}{{4})^{4})$\n";
+    EXPECT_EQ(latex->PrintLaTeX(test), expect);
 
     for (auto i : num) delete i;
-    delete mathML, test;
+    delete latex, test;
     delete add, sub, mult, div;
 }
 
