@@ -3,14 +3,9 @@
 
 #include "gtest/gtest.h"
 
-#include "../headers/base.hpp"
 #include "../headers/op.hpp"
-#include "../headers/rand.hpp"
-#include "../headers/add.hpp"
-#include "../headers/sub.hpp"
 #include "../headers/mult.hpp"
-#include "../headers/div.hpp"
-#include "../headers/pow.hpp"
+
 
 /********************************************
  *  Test New Functions
@@ -144,6 +139,42 @@ TEST(MultTest, StringNegative) {
 	y = new Op(-6);
 	test = new Mult(x, y);
 	EXPECT_EQ(test->stringify(), "(3.5 * -6)");
+
+	delete test, x, y;
+}
+
+TEST(MultTest, largeNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), 5792869584);
+	EXPECT_EQ(test->stringify(), "(965478264 * 6)");
+
+	delete test, x, y;
+}
+
+TEST(MultTest, largeNegNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(-6);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), -5792869584);
+	EXPECT_EQ(test->stringify(), "(965478264 * -6)");
+
+	delete test, x, y;
+}
+
+TEST(MultTest, multByZero) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(-65486135);
+	y = new Op(0);
+	test = new Mult(x, y);
+	EXPECT_EQ(test->evaluate(), 0);
+	EXPECT_EQ(test->stringify(), "(-65486135 * 0)");
 
 	delete test, x, y;
 }

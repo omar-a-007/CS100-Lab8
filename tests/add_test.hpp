@@ -3,14 +3,8 @@
 
 #include "gtest/gtest.h"
 
-#include "../headers/base.hpp"
 #include "../headers/op.hpp"
-#include "../headers/rand.hpp"
 #include "../headers/add.hpp"
-#include "../headers/sub.hpp"
-#include "../headers/mult.hpp"
-#include "../headers/div.hpp"
-#include "../headers/pow.hpp"
 
 /********************************************
  *  Test New Functions
@@ -22,7 +16,7 @@ TEST(AddTest, numChildren_BlankConstructor){
 	test = new Add();
 	EXPECT_EQ(test->number_of_children(), 0);
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, numChildren_typicalConstructor){
@@ -32,7 +26,7 @@ TEST(AddTest, numChildren_typicalConstructor){
 	test = new Add(x, y);
 	EXPECT_EQ(test->number_of_children(), 2);
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, getChild_noChildren){
@@ -41,7 +35,7 @@ TEST(AddTest, getChild_noChildren){
 	test = new Add();
 	EXPECT_EQ(test->get_child(0), nullptr); 
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, getChild_twoChildren){
@@ -57,7 +51,7 @@ TEST(AddTest, getChild_twoChildren){
 	EXPECT_EQ(test->get_child(5), nullptr);
 	EXPECT_EQ(test->get_child(-1), nullptr);
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, getChild_twoChildren_accessingChildren){
@@ -69,7 +63,7 @@ TEST(AddTest, getChild_twoChildren_accessingChildren){
 	EXPECT_EQ("4", test->get_child(0)->print()); 
 	EXPECT_EQ("8", test->get_child(1)->print()); 
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 /*
@@ -83,7 +77,7 @@ TEST(AddTest, accept_Visitor){
 
 	EXPECT_EQ("+", test->print());
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 */
 
@@ -93,7 +87,7 @@ TEST(AddTest, print){
 	test = new Add();
 	EXPECT_EQ("+", test->print());
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 
@@ -112,7 +106,7 @@ TEST(AddTest, AddTwelve) {
 	EXPECT_EQ(test->evaluate(), 12);
 	EXPECT_EQ(test->stringify(), "(4 + 8)");
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, AddOneNegative) {
@@ -123,7 +117,7 @@ TEST(AddTest, AddOneNegative) {
 	test = new Add(x, y);
 	EXPECT_EQ(test->evaluate(), -2);
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, AddTwoNegatives) {
@@ -134,7 +128,7 @@ TEST(AddTest, AddTwoNegatives) {
 	test = new Add(x, y);
 	EXPECT_EQ(test->evaluate(), -10);
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 TEST(AddTest, StringNegative) {
@@ -145,7 +139,7 @@ TEST(AddTest, StringNegative) {
 	test = new Add(x, y);
 	EXPECT_EQ(test->stringify(), "(3.5 + -6)");
 
-	delete test, x, y;
+	delete test; delete x; delete y;
 }
 
 #endif

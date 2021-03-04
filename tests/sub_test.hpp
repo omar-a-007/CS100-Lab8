@@ -3,14 +3,8 @@
 
 #include "gtest/gtest.h"
 
-#include "../headers/base.hpp"
 #include "../headers/op.hpp"
-#include "../headers/rand.hpp"
-#include "../headers/add.hpp"
 #include "../headers/sub.hpp"
-#include "../headers/mult.hpp"
-#include "../headers/div.hpp"
-#include "../headers/pow.hpp"
 
 /********************************************
  *  Test New Functions
@@ -145,6 +139,27 @@ TEST(SubTest, StringNegative) {
 	EXPECT_EQ(test->stringify(), "(3.5 - -6)");
 
 	delete test, x, y;
+}
+
+
+TEST(SubTest, largeNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(965478264);
+	y = new Op(6);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), 965478258);
+	EXPECT_EQ(test->stringify(), "(965478264 - 6)");
+}
+
+TEST(SubTest, largeNegNumber) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(6);
+	y = new Op(-965478264);
+	test = new Sub(x, y);
+	EXPECT_EQ(test->evaluate(), 965478270);
+	EXPECT_EQ(test->stringify(), "(6 - -965478264)");
 }
 
 #endif

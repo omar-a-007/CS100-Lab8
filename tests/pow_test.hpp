@@ -3,13 +3,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../headers/base.hpp"
 #include "../headers/op.hpp"
-#include "../headers/rand.hpp"
-#include "../headers/add.hpp"
-#include "../headers/sub.hpp"
-#include "../headers/mult.hpp"
-#include "../headers/div.hpp"
 #include "../headers/pow.hpp"
 
 /********************************************
@@ -103,7 +97,7 @@ TEST(PowTest, print){
  *  Test Old Functions
  ********************************************/
 
-TEST(PowTest, PowTwelve) {
+TEST(PowTest, PowEvalPos) {
 	Base *test = nullptr, *x = nullptr, *y = nullptr;
 	
 	x = new Op(4);
@@ -115,7 +109,20 @@ TEST(PowTest, PowTwelve) {
 	delete test, x, y;
 }
 
-TEST(PowTest, PowOneNegative) {
+
+TEST(PowTest, PowLargeNum) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+	
+	x = new Op(4);
+	y = new Op(16);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 4294967296);
+	EXPECT_EQ(test->stringify(), "(4 ** 16)");
+
+	delete test, x, y;
+}
+
+TEST(PowTest, PowOneNegativeExp) {
 	Base *test = nullptr, *x = nullptr, *y = nullptr;
 	
 	x = new Op(10);
@@ -124,6 +131,25 @@ TEST(PowTest, PowOneNegative) {
 	EXPECT_EQ(test->evaluate(), 0.01);
 
 	delete test, x, y;
+}
+
+TEST(PowTest, PowEvalNegEvenExp) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+
+	x = new Op(4);
+	y = new Op(-2);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 0.0625);
+}
+
+TEST(PowTest, PowEvalNegOddExp) {
+	Base *test = nullptr, *x = nullptr, *y = nullptr;
+
+	x = new Op(4);
+	y = new Op(-3);
+	test = new Pow(x, y);
+	EXPECT_EQ(test->evaluate(), 0.015625);
+
 }
 
 TEST(PowTest, PowTwoNegatives) {
